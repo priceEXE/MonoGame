@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"d:/MonoGame/MonoGame/Content/images/atlas-definition.xml","d:\MonoGame\MonoGame\Content\bin\DesktopGL\Content\images/atlas-definition.xml","CopyItem","File",916,916,0.0011771
+"d:/MonoGame/MonoGame/Content/images/atlas.png","d:/MonoGame/MonoGame/Content/bin/DesktopGL/Content/images/atlas.xnb","TextureProcessor","Texture2DContent",590,16469,0.1621508
+"d:/MonoGame/MonoGame/Content/images/logo.png","d:/MonoGame/MonoGame/Content/bin/DesktopGL/Content/images/logo.xnb","TextureProcessor","Texture2DContent",16734,311381,0.0183945
