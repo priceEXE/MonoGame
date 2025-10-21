@@ -1,0 +1,12 @@
+@startuml Animation
+namespace MonoGameLibrary.Graphics {
+    class Animation {
+        + Frames : List<TextureRegion>
+        + Delay : TimeSpan
+
+        + Animation()
+
+    }
+
+}
+@enduml

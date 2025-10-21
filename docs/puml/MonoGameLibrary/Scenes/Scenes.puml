@@ -1,0 +1,18 @@
+@startuml Scene
+namespace MonoGameLibrary.Scene {
+    class Scene {
+        # Content : ContentManager {readOnly}
+        + IsDisposed : bool {readOnly}
+
+        + Scene()
+
+        {abstract} + Initialize()
+        {abstract} + LoadContent()
+        {abstract} + UnloadContent()
+        {abstract} + Undate()
+        {abstract} + Darw()
+        + Dispose()
+        {abstract} # Dispose(bool)
+    }
+}
+@enduml

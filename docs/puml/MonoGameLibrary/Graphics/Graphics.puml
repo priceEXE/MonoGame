@@ -1,0 +1,6 @@
+@startuml Graphics
+!include Animation.puml
+!include Sprite.puml
+!include Texture.puml
+!include Tile.puml
+@enduml

@@ -1,0 +1,41 @@
+@startuml Texture
+namespace MonoGameLibrary.Graphics {
+    class TextureRegion {
+        + Texture : Texture2D
+        + SourceRectangle : Rectangle
+
+        + Width : int {readOnly}
+        + Height : int {readOnly}
+        + TopTextureCoordinate : float {readOnly}
+        + BottomTextureCoordinate : float {readOnly}
+        + LeftTextureCoordinate : float {readOnly}
+        + RightTextureCoordinate : float {readOnly}
+
+        + TextureRegion()
+
+        + Draw()
+    }
+
+    class TextureAtlas {
+        - _regions : Dictionary<string, TextureRegion>
+        - _animations : Dictionary<string, Animation>
+
+        + Texture : Texture2D
+
+        + TextureAtlas()
+
+        + AddRegion()
+        + GetRegion() : TextureRegion
+        + RemoveRegion() : bool
+        + Clear()
+        + CreateSprite() : Sprite
+        + AddAnimation()
+        + GetAnimation() : Animation
+        + RemoveAnimation(): bool
+        + CreateAnimationSprite() : AnimatedSprite
+
+        {static} + FromFile() : TextureAtlas
+        
+    }
+}
+@enduml

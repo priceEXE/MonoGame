@@ -1,0 +1,6 @@
+@startuml MonoGameLibrary
+!include Audio/Audio.puml
+!include Graphics/Graphics.puml
+!include Input/Input.puml
+!include Scenes/Scenes.puml
+@enduml

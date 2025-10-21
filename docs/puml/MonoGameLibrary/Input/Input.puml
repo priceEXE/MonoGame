@@ -1,0 +1,77 @@
+@startuml Input
+namespace MonoGameLibrary.Input {
+    enum MouseButton {
+        Left
+        Middle
+        Right
+        XButton1
+        XButton2
+    }
+
+    class KeyboardInfo {
+        + PreviousState : KeyboardState {readOnly}
+        + CurrentState : KeyboardState {readOnly}
+
+        + KeyboardInfo()
+        + Update()
+
+        + IsKeyDown() : bool
+        + IsKeyUp() : bool
+        + WasKeyJustPressed() : bool
+        + WasKeyJustReleased() : bool
+    }
+
+    class MouseInfo {
+        + PreviousState : MouseState {readOnly}
+        + CurrentState : MouseState {readOnly}
+        + Position : Point
+        + X : int
+        + Y : int
+        + PositionDelta : Point {readOnly}
+        + XDelta : int {readOnly}
+        + YDelta : int {readOnly}
+        + WasMoved : bool {readOnly}
+        + ScrollWheel : int {readOnly}
+        + ScrollWheelDelta : int {readOnly}
+
+        + MouseInfo()
+        + Update()
+        + IsButtonDown() : bool
+        + IsButtonUp() : bool
+        + WasButtonJustPressed() : bool
+        + WasButtonJustReleased() : bool
+        + SetPosition()
+
+    }
+
+    class GamePadInfo {
+        - _vibrationTimeRemaining : TimeSpan
+        + PlayerIndex : PlayerIndex
+        + PreviousState : GamePadState {readOnly}
+        + CurrentState : GamePadState {readOnly}
+        + IsConnected : bool {readOnly}
+        + LeftThumbStick : Vector2 {readOnly}
+        + RightThumbStick : Vector2 {readOnly}
+        + LeftTrigger : float {readOnly}
+        + RightTrigger : float {readOnly}
+
+        + GamePadInfo()
+        + Update()
+        + IsButtonDown() : bool
+        + IsButtonUp() : bool
+        + WasButtonJustPressed() : bool
+        + WasButtonJustReleased() : bool
+        + SetVibration()
+        + StopVibration()
+    }
+
+    class InputManager {
+        + Keyborad : KeyboardInfo {readOnly}
+        + Mouse : MouseInfo {readOnly}
+        + GamePads : GamePadInfo[] {readOnly}
+
+        + InputManager()
+        + Update()
+    }
+}
+@enduml
