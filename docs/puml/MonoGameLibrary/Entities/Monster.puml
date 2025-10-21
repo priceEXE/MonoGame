@@ -1,0 +1,80 @@
+@startuml Monster
+namespace MonoGameLibrary.Entities {
+    
+    class Monster {
+        + MaxHealth : float
+        + CurrentHealth : float
+        + Damage : float
+        + MoveSpeed : float
+        + AttackRange : float
+        + AttackCooldown : float
+        + CurrentAttackCooldown : float
+        + ExperienceReward : float
+
+        + TargetPosition : Vector2
+        + DetectionRange : float
+        + AttackRangeSquared : float
+
+        + CurrentState : MonsterState
+
+        + Monster()
+        {abstract} # UpdateAI()
+        {abstract} # UpdateAttack()
+        {abstract} # Attack()
+        {abstract} + TakeDamage()
+        {abstract} # Die()
+        {abstract} # DropExperience()
+        # FindNearestPlayer() : Player
+    }
+
+    enum MonsterState {
+        Idle
+        Chasing
+        Attacking
+        Dead
+    }
+
+    class TankMonster {
+        + TankMonster()
+    }
+
+    class ExplosiveMonster {
+        + ExplosionRadius : float
+        + ExplosionDamage : float
+        + IsExploding : bool
+
+        + ExplosiveMonster()
+        - Explode()
+    }
+
+    class RangedMonster {
+        + RangedMonster()
+    }
+
+    class ExperienceOrb {
+        + ExperienceValue : float
+        + AttractionRange : float
+
+        + ExperienceOrb()
+        - FindNearestPlayer() : Player
+    }
+
+    class Explosion {
+        + Damage() : float
+        + LifeTime : float
+
+        + Explosion()
+    }
+
+    class MonsterProjectile {
+        + MonsterProjectile()
+    }
+
+    
+    Monster --> MonsterState
+    Monster <|-- TankMonster
+    Monster <|-- ExplosiveMonster
+    Monster <|-- RangedMonster
+    Projectile <|-- MonsterProjectile
+}
+@enduml

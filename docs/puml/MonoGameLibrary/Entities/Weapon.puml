@@ -1,0 +1,78 @@
+@startuml Weapon
+namespace MonoGameLibrary.Entities {
+    
+    class Weapon {
+        + Name : string
+        + Damage : float
+        + AttackRange : float
+        + AttackRange : float
+        + AttackCooldown : float
+        + CurrentCooldown : float
+        + CanAttack : bool {get}
+
+        + Weapon()
+        {abstract} + Update()
+        {abstract} + Attack()
+
+    }
+
+    class MeleeWeapon {
+        + AttackRaius : float
+        + AttackAngle : float
+
+        + MeleeWeapon()
+
+    }
+
+    class RangedWeapon {
+        + MaxAmmo : int
+        + CurrentAmmo : int
+        + ReloadTime : float
+        + CurrentReloadTime : float
+        + IsReloading : bool
+
+        + RangedWeapon()
+        {abstract} # CreateProjectile()
+        + Reload()
+    }
+
+    class Pistol {
+        + Pistol()
+    }
+
+    class Rifle {
+        + Rifle()
+    }
+
+    class SniperRifle {
+        + SniperRifle()
+    }
+
+    class MeleeAttackArea {
+        + Damage : float
+        + LifeTime : float
+
+        + MeleeAttackArea()
+
+    }
+
+    class Projectile {
+        + Speed : float
+        + Damage : float
+        + float : MaxDistance
+        + TraveledDistance : float
+        + Direction : Vector2
+
+        + Projectile()
+        
+    }
+    
+    Weapon <|-- MeleeWeapon
+    Weapon <|-- RangedWeapon
+    RangedWeapon <|-- Pistol
+    RangedWeapon <|-- Rifle
+    RangedWeapon <|-- SniperRifle
+    GameEntity <|-- MeleeAttackArea
+    GameEntity <|-- Projectile
+}
+@enduml

@@ -32,5 +32,8 @@ namespace MonoGameLibrary.Graphics {
         + Draw()
         {static} + FromFile() : Tilemap
     }
+
+    Tileset o-- TextureRegion
+    Tilemap --> Tileset
 }
 @enduml

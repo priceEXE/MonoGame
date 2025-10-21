@@ -73,5 +73,10 @@ namespace MonoGameLibrary.Input {
         + InputManager()
         + Update()
     }
+
+    InputManager *-- KeyboardInfo
+    InputManager *-- GamePadInfo
+    InputManager *-- MouseInfo
+    MouseInfo --> MouseButton
 }
 @enduml

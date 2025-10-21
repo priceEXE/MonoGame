@@ -37,5 +37,9 @@ namespace MonoGameLibrary.Graphics {
         {static} + FromFile() : TextureAtlas
         
     }
+
+    TextureAtlas o-- TextureRegion
+    TextureAtlas ..> Sprite
+    TextureAtlas ..> AnimatedSprite
 }
 @enduml

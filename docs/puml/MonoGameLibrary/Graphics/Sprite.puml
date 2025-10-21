@@ -18,7 +18,7 @@ namespace MonoGameLibrary.Graphics {
         + Draw()
     }
 
-    class AnimatedSprite extends Sprite {
+    class AnimatedSprite {
         - _crrentFrame : int
         - _elapsed : TimeSpan
 
@@ -28,5 +28,9 @@ namespace MonoGameLibrary.Graphics {
 
         + Update()
     }
+
+    Sprite <|-- AnimatedSprite
+    Sprite o-- TextureRegion
+    AnimatedSprite o-- Animation
 }
 @enduml
