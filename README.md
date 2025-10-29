@@ -1,17 +1,9 @@
 # MonoGame
-软件工程课程团队项目代码仓库
-阶段一：引擎基本组件开发
-移动组件
-物理组件（碰撞检测，射线检测）
-渲染组件（2D精灵，动画，动画状态机）
-UI组件（画布，按钮，文本框，滑动条）
-阶段二：GamePlay实现
-玩家互动方式
-游戏玩法
-游戏实体
-管理类
-数据持久化
-阶段三：
-测试，debug
-报告书写
-文档编写
+ECS框架v1.0
+见MonoGameLibary下GameObject文件夹
+提供了一个默认的场景基类，通过GameObject列表管理游戏内实体
+封装了与MonoGame框架适应的Initialize，LoadContent，Update，Draw的生命周期函数，可以在Core类中使用
+在内部调用组件类的生命周期函数Awake，Start，Update，方便游戏运行流程适配
+GameObject支持在Scene中管理实体，并可以通过静态方法动态的创建新实体（前提是此实体依赖的所有资产在Scene的ContentManager中完成了加载，这个限制条件是MonoGame的生命周期函数造成的）或者删除实体，其挂载的组件也会一并删除
+GameCoponent提供一个组件类的开发模板，继承自组件类的类可以被GameObject识别并管理，并在相应的生命周期处（首次唤醒，重新唤醒，游戏更新时）由GameObject调用其生命周期函数，生命周期函数的行为由具体的实现类定义
+同样，由于MonoGame生命周期函数的特性，与渲染有关的组件（例如Sprite）制作成组件时，使用Update将需要渲染的Sprite对象和位置参数提交到其挂载的GameObject对象关联的Scene场景的DrawRequest类中，Scene对象会在MonoGame的生命周期函数调用中自动提交所有的渲染请求

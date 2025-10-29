@@ -46,6 +46,8 @@ public class Core : Game
     /// </summary>
     public static bool ExitOnEscape { get; set; }
 
+    public static Scene curScene;
+
     /// <summary>
     /// Creates a new Core instance.
     /// </summary>
