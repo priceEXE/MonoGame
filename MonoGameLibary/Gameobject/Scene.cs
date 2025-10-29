@@ -17,6 +17,7 @@ public class Scene : IDisposable
     public bool isDisposed { get; private set; }
     public DrawRequest drawRequest;
     public List<GameObject> gameObjects;
+    public GameTime gameTime;
     public Scene()
     {
         content = new ContentManager(Core.Content.ServiceProvider);
@@ -47,6 +48,7 @@ public class Scene : IDisposable
 
     public virtual void Update(GameTime gameTime)
     {
+        this.gameTime = gameTime;
         foreach (var item in gameObjects)
         {
             item.UpdateGammeObject();
