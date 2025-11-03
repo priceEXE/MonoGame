@@ -19,6 +19,10 @@ public class GameObject
     /// </summary>
     public float Rotation;
     /// <summary>
+    /// 实体尺寸
+    /// </summary>
+    public Vector2 scale;
+    /// <summary>
     /// 实体挂载组件
     /// </summary>
     List<GameComponent> gameComponents;
@@ -47,6 +51,7 @@ public class GameObject
     {
         this.name = name;
         this.tag = tag;
+        this.scale = new Vector2(1f, 1f);
         gameComponents = new List<GameComponent>();
     }
     /// <summary>
@@ -84,9 +89,10 @@ public class GameObject
     /// </summary>
     /// <typeparam name="T">组件类名称</typeparam>
     /// <returns>挂载的组件引用</returns>
-    public GameComponent AddComponent<T>() where T : GameComponent, new()
+    public T AddComponent<T>() where T : GameComponent, new()
     {
-        GameComponent t = new T();
+        T t = new T();
+        t.gameObject = this;
         gameComponents.Add(t);
         return t;
     }
@@ -95,14 +101,14 @@ public class GameObject
     /// </summary>
     /// <typeparam name="T">组件类名称</typeparam>
     /// <returns>返回第一个寻找到的组件的引用</returns>
-    public GameComponent GetComponent<T>() where T : GameComponent
+    public T GetComponent<T>() where T : GameComponent
     {
-        GameComponent t = null;
+        T t = null;
         foreach (var item in gameComponents)
         {
             if (item.GetType() == typeof(T))
             {
-                t = item;
+                t = (T)item;
                 break;
             }
         }
@@ -172,7 +178,7 @@ public class GameComponent
     /// <summary>
     /// 此组件依赖的实体
     /// </summary>
-    public GameObject gameObject { get; private set; }
+    public GameObject gameObject;
     /// <summary>
     /// ECS.Awake的虚函数
     /// </summary>
@@ -190,5 +196,5 @@ public class GameComponent
     /// 构造函数
     /// </summary>
     /// <param name="gameObject"></param>
-    public GameComponent(GameObject gameObject) => this.gameObject = gameObject;
+    public GameComponent() { }
 }

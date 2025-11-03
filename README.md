@@ -12,3 +12,7 @@ ECS框架v1.1
 增加了一个示例场景(SampleScene)，将Mono的框架功能全部转移到Scene基类中进行
 成功将MonoGame生命周期API全部封装到ECS框架类中
 增加了SpriteRender组件负责对精灵类的渲染
+ECS框架v1.2
+修正了组件相关操作的函数结构
+增加Animator组件v1.0用以存储和控制动画跳转，仅具备基本的根据动画名称跳转的能力，需要进一步加入状态机和约束条件控制
+修复了Animator组件与SpriteRender组件联合使用造成的依赖bug

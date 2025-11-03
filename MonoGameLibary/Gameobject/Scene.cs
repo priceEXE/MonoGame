@@ -78,7 +78,7 @@ public class Scene : IDisposable
     /// </summary>
     /// <param name="gameTime">帧更新时的当前帧时间</param>
     public virtual void Update(GameTime gameTime)
-    {
+    {           
         this.gameTime = gameTime;
         foreach (var item in gameObjects)
         {

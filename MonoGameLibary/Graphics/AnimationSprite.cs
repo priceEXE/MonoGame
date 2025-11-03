@@ -47,7 +47,7 @@ public class AnimatedSprite : Sprite
     /// <param name="gemeTime"></param>
     public void Update(GameTime gameTime)
     {
-        //类似于Unity的Time.deltaTime，累加时间
+        //累加时间
         _elapsed += gameTime.ElapsedGameTime;
         //当动画持续时间大于设定的延迟时间
         if (_elapsed >= _animation.Delay)
