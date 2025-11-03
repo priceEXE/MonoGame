@@ -5,14 +5,28 @@ using MonoGameLibrary;
 namespace ConfigSpace;
 public class Config
 {
-    public static Func<GameObject> SampleObject = () =>
+    public static Func<GameObject> Player = () =>
     {
-        
-        GameObject gameObject = new GameObject("sampleObject");
+
+        GameObject gameObject = new GameObject("Player");
         gameObject.AddComponent<SpriteRender>();
         gameObject.AddComponent<Animator>();
         gameObject.scale = new Vector2(4f, 4f);
         gameObject.position = Vector2.Zero;
+        gameObject.AddComponent<UnitMove>();
+        gameObject.AddComponent<PlayerController>();
+        return gameObject;
+    };
+
+    public static Func<GameObject> Enemy = () =>
+    {
+        GameObject gameObject = new GameObject("Enemy");
+        gameObject.AddComponent<SpriteRender>();
+        gameObject.AddComponent<Animator>();
+        gameObject.AddComponent<SimpleAI>();
+        gameObject.scale = new Vector2(4f, 4f);
+        gameObject.position = Vector2.Zero;
+        gameObject.AddComponent<UnitMove>();
         return gameObject;
     };
 }
