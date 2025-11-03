@@ -31,6 +31,7 @@ public class Scene : IDisposable
     /// 当前游戏实例
     /// </summary>
     public Game game;
+    private bool isFirst;
     /// <summary>
     /// Scene构造函数，Game类依赖注入
     /// </summary>
@@ -42,6 +43,7 @@ public class Scene : IDisposable
         drawRequest = new DrawRequest();
         gameObjects = new List<GameObject>();
         this.game = game;
+        isFirst = true;
     }
     /// <summary>
     /// 析构函数，强制释放内存
@@ -82,6 +84,7 @@ public class Scene : IDisposable
         this.gameTime = gameTime;
         foreach (var item in gameObjects)
         {
+            if (isFirst) item.StartGameObject();
             item.UpdateGammeObject();
         }
     }

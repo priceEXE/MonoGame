@@ -16,3 +16,8 @@ ECS框架v1.2
 修正了组件相关操作的函数结构
 增加Animator组件v1.0用以存储和控制动画跳转，仅具备基本的根据动画名称跳转的能力，需要进一步加入状态机和约束条件控制
 修复了Animator组件与SpriteRender组件联合使用造成的依赖bug
+ECS框架v1.3
+修改了GameObject的构造函数，使之与Core维护的curScene解耦
+新添加Config类的静态工具函数来快速获取一个示例实体,其拥有SpriteRender和Animator组件
+ECS框架v1.4
+增添PlayerController和UnitMove脚本,在示例场景下的游戏物体现在可以移动了

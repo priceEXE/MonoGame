@@ -151,13 +151,14 @@ public class GameObject
         return Core.curScene.GetGameObjectWithTag(name);
     }
     /// <summary>
-    /// 在场景中生成一个物体
+    /// 在场景中生成一个物体,物品进入ECS框架
     /// </summary>
     /// <param name="gameObject"></param>
     /// <returns></returns>
     public static GameObject Institate(GameObject gameObject)
     {
         Core.curScene.AddGameObject(gameObject);
+        gameObject.sence = Core.curScene;
         return gameObject;
     }
     /// <summary>
