@@ -19,6 +19,7 @@ public class SampleScene : Scene
         TextureAtlas atlas = TextureAtlas.FromFile(content, "images/atlas-definition.xml");
         slimeObject = Config.SampleObject();
         slimeObject.AddComponent<UnitMove>();
+        slimeObject.AddComponent<PlayerController>();
         Animator slimeA = slimeObject.GetComponent<Animator>();
         slimeA.RegisterAnimation("slime-animation", atlas.CreateAnimatedSprite("slime-animation"));//设置注册表
         slimeA.RegisterAnimation("bat-animation", atlas.CreateAnimatedSprite("bat-animation"));//设置注册表
