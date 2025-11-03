@@ -23,3 +23,8 @@ ECS框架v1.4
 增添PlayerController和UnitMove脚本,在示例场景下的游戏物体现在可以移动了
 ECS框架v1.4.1
 修改了Scene类的虚函数定义，现在只允许对LoadContent函数进行重载，不允许Scene的子类自行定义其他MonoGame生命周期函数（即全部收纳到ECS框架中）
+ECS框架v1.5
+大改了GameObject的Institate方法，抽象出预制体和游戏实体两个概念，现在Institate方法根据传递的GameObject参数深拷贝产生游戏实体，因此所有依赖预制体的初始化值的游戏实体生成都必须通过Institate方法生成
+为组件类基类添加了可重载的Clone函数，定义这个组件在Institate实例化过程中的拷贝行为（深浅拷贝），建议全部采用深拷贝的方式以避免实例实体和到预制体间产生代码耦合
+修改了示例场景，展示如何创建一个预制体，并将其实例化到场景中去
+将GameComponent声明为抽象类，强制要求子类实现

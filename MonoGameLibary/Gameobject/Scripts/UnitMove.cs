@@ -14,4 +14,9 @@ public class UnitMove : MonoGameLibrary.GameComponent
         ///确保每帧之间计算的移动距离准确
         gameObject.position += direction * speed * (float)gameObject.sence.gameTime.ElapsedGameTime.TotalSeconds;
     }
+
+    public override object Clone()
+    {
+        return new UnitMove();
+    }
 }

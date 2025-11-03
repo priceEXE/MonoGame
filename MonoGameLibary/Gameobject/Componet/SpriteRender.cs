@@ -13,7 +13,7 @@ public class SpriteRender : MonoGameLibrary.GameComponent
     }
     public override void Update()
     {
-        if(sprite != null)
+        if (sprite != null)
         {
             sprite.Scale = gameObject.scale;
             gameObject.sence.drawRequest.RequestDraw(sprite, gameObject.position);
@@ -21,5 +21,11 @@ public class SpriteRender : MonoGameLibrary.GameComponent
         }
     }
 
+    public override object Clone()
+    {
+        SpriteRender spriteRender = new SpriteRender();
+        spriteRender.sprite = sprite;
+        return spriteRender;
+    }
     
 }

@@ -21,15 +21,27 @@ public class SampleScene : Scene
     /// </summary>
     public override void LoadContent()
     {
-        // Create the texture atlas from the XML configuration file.
+        // 从XML文件创建图集.
         TextureAtlas atlas = TextureAtlas.FromFile(content, "images/atlas-definition.xml");
+        //生成示例物体
         slimeObject = Config.SampleObject();
+        //挂载移动脚本
         slimeObject.AddComponent<UnitMove>();
+        //挂载玩家控制脚本
         slimeObject.AddComponent<PlayerController>();
+        //获得其上的动画控制器脚本
         Animator slimeA = slimeObject.GetComponent<Animator>();
-        slimeA.RegisterAnimation("slime-animation", atlas.CreateAnimatedSprite("slime-animation"));//设置注册表
-        slimeA.RegisterAnimation("bat-animation", atlas.CreateAnimatedSprite("bat-animation"));//设置注册表
+        //设置动画注册表
+        slimeA.RegisterAnimation("slime-animation", atlas.CreateAnimatedSprite("slime-animation"));
+        slimeA.RegisterAnimation("bat-animation", atlas.CreateAnimatedSprite("bat-animation"));
+        //设置首个动画
         slimeA.ChangeAnimation("slime-animation");//转换动画
-        GameObject.Institate(slimeObject);
+        //在场景中实例化这个游戏对象
+        GameObject slimeObjectA = GameObject.Institate(slimeObject);
+        GameObject slimeObejcyB = GameObject.Institate(slimeObject);
+        //如果A与B间存在耦合（引用指向同一个实例），则修改B的位置会影响A的位置
+        slimeObejcyB.position += new Vector2(500, 0);
+        //如果A的Animator组件与B的Animator组件间存在耦合（引用指向同一个实例），则修改B的动画会影响A的动画
+        slimeObejcyB.GetComponent<Animator>().ChangeAnimation("bat-animation");
     }
 }

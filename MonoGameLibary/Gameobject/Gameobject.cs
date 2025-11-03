@@ -133,6 +133,27 @@ public class GameObject
         toRemove.Clear();
     }
     /// <summary>
+    /// 返回一个游戏对象的深拷贝
+    /// </summary>
+    /// <returns>原对象的深拷贝对象</returns>
+    /// <remarks>所有对象的组件都需要实现Clone()方法，否则无法正确的深拷贝到新对象中</remarks>
+    public object Clone()
+    {
+        GameObject newGameObject = new GameObject(this.name, this.tag);
+        newGameObject.position = new Vector2(this.position.X,this.position.Y);
+        newGameObject.Rotation = this.Rotation;
+        newGameObject.scale = new Vector2(this.scale.X, this.scale.Y);
+        foreach (var item in gameComponents)
+        {
+            GameComponent temp = item.Clone() as GameComponent;
+            temp.gameObject = newGameObject;
+            if (temp != null) newGameObject.gameComponents.Add(temp);
+        }
+        newGameObject.sence = sence;
+        newGameObject.isActive = isActive;
+        return newGameObject;
+    }
+    /// <summary>
     /// 寻找运行场景中的实体
     /// </summary>
     /// <param name="name"></param>
@@ -157,9 +178,10 @@ public class GameObject
     /// <returns></returns>
     public static GameObject Institate(GameObject gameObject)
     {
-        Core.curScene.AddGameObject(gameObject);
-        gameObject.sence = Core.curScene;
-        return gameObject;
+        GameObject instance = gameObject.Clone() as GameObject;
+        Core.curScene.AddGameObject(instance);
+        instance.sence = Core.curScene;
+        return instance;
     }
     /// <summary>
     /// 销毁一个场景中物体
@@ -173,8 +195,10 @@ public class GameObject
     
 
 }
-
-public class GameComponent
+/// <summary>
+/// 组件类声明为抽象类，其中的Clone方法必须实现
+/// </summary>
+public abstract class GameComponent
 {
     /// <summary>
     /// 此组件依赖的实体
@@ -198,4 +222,9 @@ public class GameComponent
     /// </summary>
     /// <param name="gameObject"></param>
     public GameComponent() { }
+    /// <summary>
+    /// 抽象方法Clone，必须实现以定义组件的深拷贝克隆行为
+    /// </summary>
+    /// <returns></returns>
+    public abstract object Clone();
 }

@@ -64,4 +64,9 @@ public class PlayerController : MonoGameLibrary.GameComponent
     {
         unitMove = gameObject.GetComponent<UnitMove>();
     }
+
+    public override object Clone()
+    {
+        return new PlayerController();
+    }
 }

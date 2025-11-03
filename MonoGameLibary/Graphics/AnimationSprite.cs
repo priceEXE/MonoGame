@@ -32,7 +32,7 @@ public class AnimatedSprite : Sprite
     /// <summary>
     /// 构造空的动画精灵
     /// </summary>
-    public AnimatedSprite() { }
+    public AnimatedSprite() {}
     /// <summary>
     /// 构造指定动画的动画精灵
     /// </summary>
@@ -63,4 +63,9 @@ public class AnimatedSprite : Sprite
         }
     }
 
+    public object Clone()
+    {
+        AnimatedSprite animatedSprite = new AnimatedSprite(_animation);
+        return animatedSprite;
+    }
 }

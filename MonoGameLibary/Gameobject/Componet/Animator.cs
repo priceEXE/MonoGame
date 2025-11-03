@@ -8,7 +8,10 @@ public class Animator : MonoGameLibrary.GameComponent
 {
     private Dictionary<string, AnimatedSprite> keyValuePairs;
     public AnimatedSprite curAnimation { get; private set; }
-
+    public string curName { get; private set; }
+    /// <summary>
+    /// 运行时获得SpriteRender，不需要Clone复制
+    /// </summary>
     private SpriteRender spriteRender;
     public Animator()
     {
@@ -28,6 +31,7 @@ public class Animator : MonoGameLibrary.GameComponent
     {
         if (keyValuePairs.ContainsKey(name))
         {
+            curName = name;
             curAnimation = keyValuePairs[name];
             return true;
         }
@@ -43,10 +47,21 @@ public class Animator : MonoGameLibrary.GameComponent
         }
         return false;
     }
-    
+
     public void ClearAnimation()
     {
         keyValuePairs.Clear();
         curAnimation = null;
+    }
+
+    public override object Clone()
+    {
+        Animator animator = new Animator();
+        foreach (var item in keyValuePairs)
+        {
+            animator.RegisterAnimation(item.Key, item.Value.Clone() as AnimatedSprite);
+        }
+        animator.ChangeAnimation(curName);
+        return animator;
     }
 }
