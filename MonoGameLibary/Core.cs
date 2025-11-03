@@ -140,6 +140,7 @@ public class Core : Game
         {
             curScene.Dispose();
             curScene = nextScene;
+            curScene.Initialize();
         }
     }
 }

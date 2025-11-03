@@ -21,3 +21,5 @@ ECS框架v1.3
 新添加Config类的静态工具函数来快速获取一个示例实体,其拥有SpriteRender和Animator组件
 ECS框架v1.4
 增添PlayerController和UnitMove脚本,在示例场景下的游戏物体现在可以移动了
+ECS框架v1.4.1
+修改了Scene类的虚函数定义，现在只允许对LoadContent函数进行重载，不允许Scene的子类自行定义其他MonoGame生命周期函数（即全部收纳到ECS框架中）

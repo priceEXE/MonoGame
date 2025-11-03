@@ -34,15 +34,15 @@ public class Game1 : Core
 
     protected override void Draw(GameTime gameTime)
     {
-        // Clear the back buffer.
+        // 清空缓冲区.
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        // Begin the sprite batch to prepare for rendering.
+        // 开始渲染.
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
+        // 调用当前场景渲染请求
         curScene.Draw(gameTime);
 
-        // Always end the sprite batch when finished.
+        // 结束渲染
         SpriteBatch.End();
 
         base.Draw(gameTime);

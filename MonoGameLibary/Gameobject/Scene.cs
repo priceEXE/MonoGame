@@ -79,7 +79,7 @@ public class Scene : IDisposable
     /// Scene的MonoGame生命周期函数Update，每帧更新一次
     /// </summary>
     /// <param name="gameTime">帧更新时的当前帧时间</param>
-    public virtual void Update(GameTime gameTime)
+    public void Update(GameTime gameTime)
     {           
         this.gameTime = gameTime;
         foreach (var item in gameObjects)
@@ -92,7 +92,7 @@ public class Scene : IDisposable
     /// Scene的MonoGame生命周期函数Draw，每帧更新一次
     /// </summary>
     /// <param name="gameTime">Draw绘制时当前帧时间</param>
-    public virtual void Draw(GameTime gameTime)
+    public void Draw(GameTime gameTime)
     {
         drawRequest.Draw(Core.SpriteBatch);
     }
