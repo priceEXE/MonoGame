@@ -136,11 +136,15 @@ public class Core : Game
     /// </summary>
     protected void ChangeScene()
     {
-        if(nextScene != null)
+        if (nextScene != null)
         {
             curScene.Dispose();
             curScene = nextScene;
             curScene.Initialize();
         }
+    }
+    public static Vector2 GetViewPort()
+    {
+        return new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
     }
 }

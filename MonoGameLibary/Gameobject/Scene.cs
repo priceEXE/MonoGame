@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -198,6 +199,10 @@ public class Scene : IDisposable
 public class DrawRequest
 {
     /// <summary>
+    /// 进行渲染操作的摄像机位置
+    /// </summary>
+    public Vector2 cameraPos;
+    /// <summary>
     /// 待渲染的精灵
     /// </summary>
     public List<Sprite> sprites;
@@ -219,13 +224,15 @@ public class DrawRequest
     /// <param name="spriteBatch">渲染管线引用</param>
     public void Draw(SpriteBatch spriteBatch)
     {
-
-        for (int i = 0; i < sprites.Count; i++)
+        if(Camera.main!=null)
         {
-            sprites[i].Draw(spriteBatch, positions[i]);
+            for (int i = 0; i < sprites.Count; i++)
+            {
+                sprites[i].Draw(spriteBatch, Camera.main.GetDrawPosition(positions[i]));
+            }
+            sprites.Clear();
+            positions.Clear();
         }
-        sprites.Clear();
-        positions.Clear();
     }
     /// <summary>
     /// 由ECS.Update调用，提交渲染请求
@@ -237,6 +244,4 @@ public class DrawRequest
         sprites.Add(sprite);
         positions.Add(position);
     }
-    
-    
 }

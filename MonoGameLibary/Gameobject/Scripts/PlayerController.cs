@@ -34,8 +34,8 @@ public class PlayerController : MonoGameLibrary.GameComponent
     public Vector2 GetDirection()
     {
         Vector2 res = Vector2.Zero;
-        if (InputManager.GetKey(upKey)) res.Y -= 1;
-        if (InputManager.GetKey(downKey)) res.Y += 1;
+        if (InputManager.GetKey(upKey)) res.Y += 1;
+        if (InputManager.GetKey(downKey)) res.Y -= 1;
         if (InputManager.GetKey(leftKey)) res.X -= 1f;
         if (InputManager.GetKey(rightKey)) res.X += 1f;
         if(res != Vector2.Zero) res.Normalize();

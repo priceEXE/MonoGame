@@ -37,5 +37,9 @@ public class SampleScene : Scene
         //在场景中实例化这个游戏对象
         GameObject.Institate(slimeObject);
         GameObject.Institate(EnemyObject);
+        //创建摄像机实体
+        GameObject camera = new GameObject("Camera");
+        camera.AddComponent<Camera>().isMain = true;
+        GameObject.Institate(camera).position = new Vector2(0,0);
     }
 }
