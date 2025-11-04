@@ -1,39 +1,39 @@
 # MonoGame
-ECS框架v1.0
-见MonoGameLibary下GameObject文件夹
-提供了一个默认的场景基类，通过GameObject列表管理游戏内实体
-封装了与MonoGame框架适应的Initialize，LoadContent，Update，Draw的生命周期函数，可以在Core类中使用
-在内部调用组件类的生命周期函数Awake，Start，Update，方便游戏运行流程适配
-GameObject支持在Scene中管理实体，并可以通过静态方法动态的创建新实体（前提是此实体依赖的所有资产在Scene的ContentManager中完成了加载，这个限制条件是MonoGame的生命周期函数造成的）或者删除实体，其挂载的组件也会一并删除
-GameCoponent提供一个组件类的开发模板，继承自组件类的类可以被GameObject识别并管理，并在相应的生命周期处（首次唤醒，重新唤醒，游戏更新时）由GameObject调用其生命周期函数，生命周期函数的行为由具体的实现类定义
-同样，由于MonoGame生命周期函数的特性，与渲染有关的组件（例如Sprite）制作成组件时，使用Update将需要渲染的Sprite对象和位置参数提交到其挂载的GameObject对象关联的Scene场景的DrawRequest类中，Scene对象会在MonoGame的生命周期函数调用中自动提交所有的渲染请求
-ECS框架v1.1
-增加了ESC代码框架的源代码字段成员和函数成员的具体注释
-增加了一个示例场景(SampleScene)，将Mono的框架功能全部转移到Scene基类中进行
-成功将MonoGame生命周期API全部封装到ECS框架类中
-增加了SpriteRender组件负责对精灵类的渲染
-ECS框架v1.2
-修正了组件相关操作的函数结构
-增加Animator组件v1.0用以存储和控制动画跳转，仅具备基本的根据动画名称跳转的能力，需要进一步加入状态机和约束条件控制
-修复了Animator组件与SpriteRender组件联合使用造成的依赖bug
-ECS框架v1.3
-修改了GameObject的构造函数，使之与Core维护的curScene解耦
-新添加Config类的静态工具函数来快速获取一个示例实体,其拥有SpriteRender和Animator组件
-ECS框架v1.4
-增添PlayerController和UnitMove脚本,在示例场景下的游戏物体现在可以移动了
-ECS框架v1.4.1
-修改了Scene类的虚函数定义，现在只允许对LoadContent函数进行重载，不允许Scene的子类自行定义其他MonoGame生命周期函数（即全部收纳到ECS框架中）
-ECS框架v1.5
-大改了GameObject的Institate方法，抽象出预制体和游戏实体两个概念，现在Institate方法根据传递的GameObject参数深拷贝产生游戏实体，因此所有依赖预制体的初始化值的游戏实体生成都必须通过Institate方法生成
-为组件类基类添加了可重载的Clone函数，定义这个组件在Institate实例化过程中的拷贝行为（深浅拷贝），建议全部采用深拷贝的方式以避免实例实体和到预制体间产生代码耦合
-修改了示例场景，展示如何创建一个预制体，并将其实例化到场景中去
-将GameComponent声明为抽象类，强制要求子类实现
-ECS框架v1.5.1
-增加了SimpleAI组件，具体功能为控制拥有UnitMove组件的实体保持在一个游戏内物体的一定像素范围内（表现为跟随效果）
-修订了Config类中获得模板预制体的方法，使之更有普遍性
-修改了示例场景的LoadContent
-ECS框架v1.5.2
-增加了Camera组件控制所有渲染，Camera类中的Main字段定义主摄像机，Scene场景通过绑定的主摄像机进行坐标转换和渲染
-通过Camera组件的坐标变换方法将世界坐标修改为x轴右，y轴上方为正轴的自然定义方式
-在Core中添加了GetViewPort方法以获取视口大小
-在示例场景中添加了创建主摄像机的方法
+## ECS框架v1.0
+- 见MonoGameLibary下GameObject文件夹
+- 提供了一个默认的场景基类，通过GameObject列表管理游戏内实体
+- 封装了与MonoGame框架适应的Initialize，LoadContent，Update，Draw的生命周期函数，可以在Core类中使用
+- 在内部调用组件类的生命周期函数Awake，Start，Update，方便游戏运行流程适配
+- GameObject支持在Scene中管理实体，并可以通过静态方法动态的创建新实体（前提是此实体依赖的所有资产在Scene的ContentManager中完成了加载，这个限制条件是MonoGame的生命周期函数造成的）或者删除实体，其挂载的组件也会一并删除
+- GameCoponent提供一个组件类的开发模板，继承自组件类的类可以被GameObject识别并管理，并在相应的生命周期处（首次唤醒，重新唤醒，游戏更新时）由GameObject调用其生命周期函数，生命周期函数的行为由具体的实现类定义
+- 同样，由于MonoGame生命周期函数的特性，与渲染有关的组件（例如Sprite）制作成组件时，使用Update将需要渲染的Sprite对象和位置参数提交到其挂载的GameObject对象关联的Scene场景的DrawRequest类中，Scene对象会在MonoGame的生命周期函数调用中自动提交所有的渲染请求
+## ECS框架v1.1
+- 增加了ESC代码框架的源代码字段成员和函数成员的具体注释
+- 增加了一个示例场景(SampleScene)，将Mono的框架功能全部转移到Scene基类中进行
+- 成功将MonoGame生命周期API全部封装到ECS框架类中
+- 增加了SpriteRender组件负责对精灵类的渲染
+## ECS框架v1.2
+- 修正了组件相关操作的函数结构
+- 增加Animator组件v1.0用以存储和控制动画跳转，仅具备基本的根据动画名称跳转的能力，需要进一步加入状态机和约束条件控制
+- 修复了Animator组件与SpriteRender组件联合使用造成的依赖bug
+## ECS框架v1.3
+- 修改了GameObject的构造函数，使之与Core维护的curScene解耦
+- 新添加Config类的静态工具函数来快速获取一个示例实体,其拥有SpriteRender和Animator组件
+## ECS框架v1.4
+- 增添PlayerController和UnitMove脚本,在示例场景下的游戏物体现在可以移动了
+## ECS框架v1.4.1
+- 修改了Scene类的虚函数定义，现在只允许对LoadContent函数进行重载，不允许Scene的子类自行定义其他MonoGame生命周期函数（即全部收纳到ECS框架中）
+## ECS框架v1.5
+- 大改了GameObject的Institate方法，抽象出预制体和游戏实体两个概念，现在Institate方法根据传递的GameObject参数深拷贝产生游戏实体，因此所有依赖预制体的初始化值的游戏实体生成都必须通过Institate方法生成
+- 为组件类基类添加了可重载的Clone函数，定义这个组件在Institate实例化过程中的拷贝行为（深浅拷贝），建议全部采用深拷贝的方式以避免实例实体和到预制体间产生代码耦合
+- 修改了示例场景，展示如何创建一个预制体，并将其实例化到场景中去
+- 将GameComponent声明为抽象类，强制要求子类实现
+## ECS框架v1.5.1
+- 增加了SimpleAI组件，具体功能为控制拥有UnitMove组件的实体保持在一个游戏内物体的一定像素范围内（表现为跟随效果）
+- 修订了Config类中获得模板预制体的方法，使之更有普遍性
+- 修改了示例场景的LoadContent
+## ECS框架v1.5.2
+- 增加了Camera组件控制所有渲染，Camera类中的Main字段定义主摄像机，Scene场景通过绑定的主摄像机进行坐标转换和渲染
+- 通过Camera组件的坐标变换方法将世界坐标修改为x轴右，y轴上方为正轴的自然定义方式
+- 在Core中添加了GetViewPort方法以获取视口大小
+- 在示例场景中添加了创建主摄像机的方法
