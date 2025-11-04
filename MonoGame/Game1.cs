@@ -9,15 +9,6 @@ namespace DungeonSlime;
 
 public class Game1 : Core
 {
-    // Defines the slime animated sprite.
-    private AnimatedSprite _slime;
-
-    // Defines the bat animated sprite.
-    private AnimatedSprite _bat;
-
-    private float speed = 5;
-
-    private Vector2 position = new Vector2(0,0);
 
     public Game1() : base("Dungeon Slime", 1280, 720, false)
     {
@@ -27,56 +18,31 @@ public class Game1 : Core
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
         base.Initialize();
+        curScene = new SampleScene(this);
+        curScene.Initialize();
+
     }
 
-    protected override void LoadContent()
-    {
-        // Create the texture atlas from the XML configuration file.
-        TextureAtlas atlas = TextureAtlas.FromFile(Content, "images/atlas-definition.xml");
-
-        // Create the slime animated sprite from the atlas.
-        _slime = atlas.CreateAnimatedSprite("slime-animation");
-        _slime.Scale = new Vector2(4.0f, 4.0f);
-
-        // Create the bat animated sprite from the atlas.
-        _bat = atlas.CreateAnimatedSprite("bat-animation");
-        _bat.Scale = new Vector2(4.0f, 4.0f);
-    }
+    protected override void LoadContent() { }
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-        if (InputManager.GetKeyDown(Keys.S))
-        {
-            position.Y += speed;
-        }
-        // Update the slime animated sprite.
-        _slime.Update(gameTime);
-
-        // Update the bat animated sprite.
-        _bat.Update(gameTime);
-
+        curScene.Update(gameTime);
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        // Clear the back buffer.
+        // 清空缓冲区.
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        // Begin the sprite batch to prepare for rendering.
+        // 开始渲染.
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        // 调用当前场景渲染请求
+        curScene.Draw(gameTime);
 
-        // Draw the slime sprite.
-        _slime.Draw(SpriteBatch, position);
-
-        // Draw the bat sprite 10px to the right of the slime.
-        _bat.Draw(SpriteBatch, new Vector2(_slime.Width + 10, 0));
-
-        // Always end the sprite batch when finished.
+        // 结束渲染
         SpriteBatch.End();
 
         base.Draw(gameTime);
