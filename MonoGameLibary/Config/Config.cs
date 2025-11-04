@@ -29,4 +29,11 @@ public class Config
         gameObject.AddComponent<UnitMove>();
         return gameObject;
     };
+
+    public static Func<GameObject> GameManager = () =>
+    {
+        GameObject gameObject = new GameObject("GameManager");
+        gameObject.AddComponent<GameManager>();
+        return gameObject;
+    };
 }

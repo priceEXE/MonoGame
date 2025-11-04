@@ -36,7 +36,9 @@ public class SampleScene : Scene
         EnemyObject.GetComponent<Animator>().ChangeAnimation("bat-animation");
         //在场景中实例化这个游戏对象
         GameObject.Institate(slimeObject);
-        GameObject.Institate(EnemyObject);
+        GameObject gameManager = Config.GameManager();
+        gameManager.GetComponent<GameManager>().enemyPrefab = EnemyObject;
+        GameObject.Institate(gameManager);
         //创建摄像机实体
         GameObject camera = new GameObject("Camera");
         camera.AddComponent<Camera>().isMain = true;

@@ -36,7 +36,7 @@ public class Camera : MonoGameLibrary.GameComponent
     {
         Vector2 origin = new Vector2(gameObject.position.X, -gameObject.position.Y);
         Vector2 viewPos = new Vector2(pos.X, -pos.Y);
-        viewPos += origin;
+        viewPos -= origin;
         Vector2 viewPort = Core.GetViewPort();
         viewPos += new Vector2( viewPort.X * .5f, 0);
         viewPos += new Vector2(0, viewPort.Y * .5f);

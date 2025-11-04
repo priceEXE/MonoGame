@@ -33,6 +33,8 @@ public class Scene : IDisposable
     /// </summary>
     public Game game;
     private bool isFirst;
+    private List<GameObject> toBeAdded;
+    private List<GameObject> toBeDelete;
     /// <summary>
     /// Scene构造函数，Game类依赖注入
     /// </summary>
@@ -43,6 +45,8 @@ public class Scene : IDisposable
         content.RootDirectory = Core.Content.RootDirectory;
         drawRequest = new DrawRequest();
         gameObjects = new List<GameObject>();
+        toBeAdded = new List<GameObject>();
+        toBeDelete = new List<GameObject>();
         this.game = game;
         isFirst = true;
     }
@@ -58,6 +62,12 @@ public class Scene : IDisposable
         ///以下是一个默认行为，重载的子类函数尾需调用父类的此函数
         ///首先加载所有资产
         LoadContent();
+        ///将LoadContent期间实例化的物体添加至列表篇
+        foreach (var item in toBeAdded)
+        {
+            gameObjects.Add(item);
+        }
+        toBeAdded.Clear();
         ///根据资产加载结果对组件做初始化
         foreach (var item in gameObjects)
         {
@@ -88,6 +98,16 @@ public class Scene : IDisposable
             if (isFirst) item.StartGameObject();
             item.UpdateGammeObject();
         }
+        foreach (var item in toBeAdded)
+        {
+            gameObjects.Add(item);
+        }
+        foreach (var item in toBeDelete)
+        {
+            gameObjects.Remove(item);
+        }
+        toBeAdded.Clear();
+        toBeDelete.Clear();
     }
     /// <summary>
     /// Scene的MonoGame生命周期函数Draw，每帧更新一次
@@ -155,7 +175,7 @@ public class Scene : IDisposable
     /// <param name="gameObject">游戏物体</param>
     public void AddGameObject(GameObject gameObject)
     {
-        gameObjects.Add(gameObject);
+        toBeAdded.Add(gameObject);
         gameObject.AwakeGameObject();
     }
     /// <summary>
@@ -166,7 +186,7 @@ public class Scene : IDisposable
     {
         if (gameObjects.Contains(gameObject))
         {
-            gameObjects.Remove(gameObject);
+            toBeDelete.Add(gameObject);
         }
     }
     /// <summary>

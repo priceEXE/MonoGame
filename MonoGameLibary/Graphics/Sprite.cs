@@ -52,6 +52,7 @@ public class Sprite
     public Sprite(TextureRegion region)
     {
         Region = region;
+        CenterOrigion();
     }
     /// <summary>
     /// 将原点设置到纹理区域的中心
