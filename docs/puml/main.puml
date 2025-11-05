@@ -1,0 +1,4 @@
+@startuml main
+!include MonoGameLibrary/MonoGameLibrary.puml
+page 2x2
+@enduml

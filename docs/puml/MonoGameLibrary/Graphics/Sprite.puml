@@ -1,0 +1,36 @@
+@startuml Sprite
+namespace MonoGameLibrary.Graphics {
+    
+    class Sprite {
+        + Region : TextureRegion
+        + Color : Color
+        + Rotation : float
+        + Scale : Vextor2
+        + Origin : Vector2
+        + Effects : SpriteEffects
+        + LayerDepth : float
+
+        + Width : float {readOnly}
+        + Height : float {readOnly}
+
+        + Sprite()
+        + CenterOrigin()
+        + Draw()
+    }
+
+    class AnimatedSprite {
+        - _crrentFrame : int
+        - _elapsed : TimeSpan
+
+        + Animation : Animation
+
+        + AnimatedSprite()
+
+        + Update()
+    }
+
+    Sprite <|-- AnimatedSprite
+    Sprite o-- TextureRegion
+    AnimatedSprite o-- Animation
+}
+@enduml

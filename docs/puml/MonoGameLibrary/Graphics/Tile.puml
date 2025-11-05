@@ -1,0 +1,39 @@
+@startuml Tile
+namespace MonoGameLibrary.Graphics {
+    class Tileset {
+        - _tiles : TextureRegion[] {readOnly}
+        
+        + TileWidth : int {readOnly}
+        + TileHeight : int {readOnly}
+        + Columns : int {readOnly}
+        + Rows : int {readOnly}
+        + Count : int {readOnly}
+
+        + Tileset()
+
+        + GetTile() : TextureRegion
+    }
+
+    class Tilemap {
+        - _tileset : Tileset {readOnly}
+        - _tiles : int[] {readOnly}
+
+        + Rows : int {readOnly}
+        + Colums : int {readOnly}
+        + Count : int {readOnly}
+        + Scale : Vector2
+        + TileWidth : float {readOnly}
+        + TileHeight : float {readOnly}
+
+        + Tilemap()
+
+        + SetTile()
+        + GetTile() : TextureRegion
+        + Draw()
+        {static} + FromFile() : Tilemap
+    }
+
+    Tileset o-- TextureRegion
+    Tilemap --> Tileset
+}
+@enduml

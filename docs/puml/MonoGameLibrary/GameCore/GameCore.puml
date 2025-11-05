@@ -1,0 +1,57 @@
+@startuml GameCore
+namespace MonoGameLibrary.Gamecore {
+    class AISystem {
+        - _monster : List<Monster>
+        - _player : Player
+
+        + AISystem()
+        + SetPlayer()
+        + AddMonster()
+        + RemoveMonster()
+        + Update()
+        - UpdateMonsterAI()
+        - UpdateTankMonsterAI()
+        - UpdateExplosiveMonsterAI()
+        - UpdateRangedMonsterAI()
+    }
+
+    class SpawnSystem {
+        - _spawnPoints : List<SpawnPoint>
+        - _player : Player
+        - _random : Random
+        - _spawnTimer : float
+        - _spawnInterval : float
+        - _maxMonsters : int
+        - _currentMonsterCount : int
+
+        + SpawnSystem()
+        + SetPlayer()
+        + AddSpawnPoint()
+        + Update()
+        - SpawnMonster()
+        - SelectSpawnPoint() : SpawnPoint
+        - SelectMonsterType() : MonsterType
+        - UpdateSpawnPoints()
+        + OnMonsterDeath()
+        + SetSpawnParameters()
+
+    }
+
+    class SpawnPoint {
+        + Position : Vector2
+        + Raius : float
+        + LastSpawnTime : float
+
+        + SpawnPoint
+    }
+
+    enum MonsterType {
+        Tank
+        Explosive
+        Ranged
+    }
+
+    SpawnSystem --> MonsterType
+    SpawnSystem o-- SpawnPoint
+}
+@enduml

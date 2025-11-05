@@ -1,0 +1,32 @@
+@startuml Audio
+
+
+
+namespace MonoGameLibrary.Audio {
+    class AudioController {
+        - _activeSoundEffectInstances : List<SoundEffectInstance> {readonly}
+        - _previousSongVolume : float
+        - _previousSoundEffectVolume : float
+        + IsMuted : bool {readOnly}
+        + SongVolume : float
+        + SoundEffectVolume : float
+        + IsDisposed : bool {readOnly}
+
+        + AudioController()
+        + Update()
+        + PlaySoundEffect() : SoundEffectInstance
+        + PlaySong()
+        + PauseAudio()
+        + ResumeAudio()
+        + MuteAudio()
+        + UnmuteAudio()
+        + ToggleMute()
+        + Dispose()
+    }
+}
+interface IDisposable {
+    + Dispose()
+}
+
+AudioController ..|> IDisposable
+@enduml

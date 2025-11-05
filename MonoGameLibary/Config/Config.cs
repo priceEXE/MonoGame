@@ -36,4 +36,12 @@ public class Config
         gameObject.AddComponent<GameManager>();
         return gameObject;
     };
+    public static Func<GameObject> TilemapObject = () =>
+    {
+        GameObject gameObject = new GameObject("Tilemap");
+        gameObject.AddComponent<TilemapRenderer>();
+        gameObject.scale = new Vector2(4f, 4f);
+        gameObject.position = new Vector2(-640, +360);
+        return gameObject;
+    };
 }

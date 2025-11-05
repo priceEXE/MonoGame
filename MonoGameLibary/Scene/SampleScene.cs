@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using MonoGameLibrary.Physics2D;
 public class SampleScene : Scene
 {
+    private GameObject tilemapObject;
+    private GameObject slimeObject;
     /// <summary>
     /// 所有此场景下需要生成的prefabs物体
     /// todo：从配置文件反序列化这些物体
@@ -29,7 +31,11 @@ public class SampleScene : Scene
         playerAnimator.RegisterAnimation("slime-animation", atlas.CreateAnimatedSprite("slime-animation"));
         playerAnimator.ChangeAnimation("slime-animation");//转换动画
         player.AddComponent<Collider2D>();
+        GameObject tilemapObject = Config.TilemapObject();
         GameObject EnemyObject = Config.Enemy();
+        // 加载瓦片地图
+        Tilemap tilemap = Tilemap.FromFile(content, "images/tilemap-definition.xml");
+        tilemapObject.GetComponent<TilemapRenderer>().tilemap = tilemap;
         //获得其上的动画控制器脚本
         //设置动画注册表
         EnemyObject.GetComponent<Animator>().RegisterAnimation("bat-animation", atlas.CreateAnimatedSprite("bat-animation"));
@@ -41,6 +47,8 @@ public class SampleScene : Scene
         GameObject gameManager = Config.GameManager();
         gameManager.GetComponent<GameManager>().enemyPrefab = EnemyObject;
         GameObject.Institate(gameManager);
+        //在场景中实例化这个游戏对象
+        GameObject.Institate(tilemapObject);
         //创建摄像机实体
         GameObject camera = new GameObject("Camera");
         camera.AddComponent<Camera>().isMain = true;

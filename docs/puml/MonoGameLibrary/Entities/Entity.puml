@@ -1,0 +1,95 @@
+@startuml Entity
+!include Weapon.puml
+!include Monster.puml
+namespace MonoGameLibrary.Entities {
+    class GameEntity {
+        + Position : Vector2
+        + Velocity : Vector2
+        + Rotation : float
+        + Scale : Vector2
+        + IsActive : bool
+        + IsVisible : bool
+        + Tag : string
+
+        # _sprite : Sprite
+        # _animatedSprite : AnimatedSprite
+
+        + GameEntity()
+        {abstract} + Load()
+        {abstract} + Unload()
+        {abstract} + Update()
+        {abstract} + Draw()
+
+        + SetSprite()
+        + SetAnimatedSprite()
+
+        {abstract} + GetBounds() : Rectangle
+
+    }
+
+    class Player {
+        + MaxHealth : float
+        + CurrentHealth : float
+        + Experience : float
+        + Level : int
+        + MoveSpeed : float
+        + InvulnerabilityTime : float
+        + IsInvulnerable : bool
+        + CurrentWeapon : Weapon
+        + ActiveBuffs : List<Buff> {get, private set}
+        + CurrentAnimationState : AnimationState
+        + LastMoveDirection : Vector2
+
+        + Player()
+        - HandleInput()
+        - Attack()
+        - GetMouseDirection() : Vector2
+        + TakeDamage()
+        + GainExperience()
+        - CheckLevelUp()
+        - LevelUp()
+        - Die()
+        + AddBuff()
+        - UpdateBuffs()
+        - UpdateAnimationState()
+
+
+    }
+
+    enum AnimationState {
+        Idle
+        Moving
+        Attacking
+        Hurt
+    }
+
+    enum BuffType {
+        SpeedBoost
+        InfiniteAmmo
+        HealthRegen
+        DamageBoost
+    }
+
+    class Buff {
+        + Type : BuffType
+        + Value : float
+        + Duration : float
+        + RemainingTime : float
+        + IsExpired : bool
+
+        + Buff()
+        + Update()
+        + GetDexcription() : string
+    }
+
+    GameEntity <|-- Player
+    GameEntity <|-- Monster
+    GameEntity <|-- Explosion
+    GameEntity <|-- ExperienceOrb
+    Player *-- Weapon
+    Player --> AnimationState
+    Player *-- Buff
+    Buff --> BuffType
+
+}
+@enduml

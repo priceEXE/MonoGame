@@ -1,0 +1,51 @@
+@startuml MonoGameLibrary
+!include Audio/Audio.puml
+!include Graphics/Graphics.puml
+!include Input/Input.puml
+!include Scenes/Scenes.puml
+!include Entities/Entity.puml
+!include GameCore/GameCore.puml
+namespace MonoGameLibrary {
+    class Core {
+        {static} ~ s_instance : Core
+        {static} + Instance : Core
+        {static} - s_activeScene : Scene
+        {static} - s_nextScene : Scene
+        {static} + GraphicsDevice : GraphicsDevice
+        {static} + SpriteBatch : SpriteBatch
+        {static} + Content : ContentManager
+        {static} + Input : InputManager
+        {static} + ExitOnEscape : bool
+        {static} + Audio : AudioController
+
+        + Core()
+
+    }
+
+    class Circle {
+        + X : int {readOnly}
+        + Y : int {readOnly}
+        + Radius : int {readOnly}
+        + Location : Point {readOnly}
+        {static} + Empty : Circle {readOnly}
+
+        + IsEnoty : bool {readOnly}
+
+        + Top : int {readOnly}
+        + Bottom : int {readOnly}
+        + Left : int {readOnly}
+        + Right : int {readOnly}
+
+        + Circle()
+        + Intersects() : bool
+
+    }
+}
+
+interface IEquatable {
+    + Equals()
+    + GetHashCode()
+}
+Game <|-- MonoGameLibrary.Core
+IEquatable <|.. Circle
+@enduml

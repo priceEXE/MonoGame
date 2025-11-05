@@ -274,6 +274,14 @@ public class DrawRequest
     /// </summary>
     public Vector2 cameraPos;
     /// <summary>
+    /// 待渲染的瓦片地图
+    /// </summary>
+    public List<Tilemap> tilemaps;
+    /// <summary>
+    /// 待渲染的瓦片地图位置 
+    /// </summary>
+    public List<Vector2> tilemapPositions;
+    /// <summary>
     /// 待渲染的精灵
     /// </summary>
     public List<Sprite> sprites;
@@ -286,6 +294,8 @@ public class DrawRequest
     /// </summary>
     public DrawRequest()
     {
+        tilemaps = new List<Tilemap>();
+        tilemapPositions = new List<Vector2>();
         sprites = new List<Sprite>();
         positions = new List<Vector2>();
     }
@@ -297,10 +307,16 @@ public class DrawRequest
     {
         if(Camera.main!=null)
         {
+            for (int i = 0; i < tilemaps.Count; i++)
+            {
+                tilemaps[i].Draw(spriteBatch, Camera.main.GetDrawPosition(tilemapPositions[i]));
+            }
             for (int i = 0; i < sprites.Count; i++)
             {
                 sprites[i].Draw(spriteBatch, Camera.main.GetDrawPosition(positions[i]));
             }
+            tilemaps.Clear();
+            tilemapPositions.Clear();
             sprites.Clear();
             positions.Clear();
         }
@@ -314,5 +330,11 @@ public class DrawRequest
     {
         sprites.Add(sprite);
         positions.Add(position);
+    }
+
+    public void RequestDraw(Tilemap tilemap, Vector2 position)
+    {
+        tilemaps.Add(tilemap);
+        tilemapPositions.Add(position);
     }
 }

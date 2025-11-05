@@ -22,7 +22,7 @@ public class Camera : MonoGameLibrary.GameComponent
         Camera camera = new Camera();
         if (this.isMain)
         {
-            ///更改主摄像机设置
+            // 更改主摄像机设置
             Camera.main = camera;
             Camera.main.isMain = true;
         }
