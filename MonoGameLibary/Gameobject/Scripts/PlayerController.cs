@@ -71,10 +71,4 @@ public class PlayerController : MonoGameLibrary.GameComponent
     {
         return new PlayerController();
     }
-
-    public void OnCollisionStay()
-    {
-        Debug.WriteLine(1);
-        GameObject.Destory(this.gameObject);
-    }
 }

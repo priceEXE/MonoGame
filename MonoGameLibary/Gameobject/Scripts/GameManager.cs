@@ -2,6 +2,7 @@ using MonoGameLibrary;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 
 public class GameManager : MonoGameLibrary.GameComponent
 {
@@ -11,10 +12,10 @@ public class GameManager : MonoGameLibrary.GameComponent
     public override void Update()
     {
         ///生成敌人
-        if (enemys.Count != 1)
+        if (enemys.Count != 5)
         {
             GameObject e = GameObject.Institate(enemyPrefab);
-            e.position = new Vector2(MathTool.RandomRange(-1000, 1000), MathTool.RandomRange(-1000, 1000));
+            e.position = new Vector2(MathTool.RandomRange(-300, 300), MathTool.RandomRange(-300, 300));
             enemys.Add(e);
         }
     }

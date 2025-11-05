@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary.Graphics;
@@ -66,12 +67,18 @@ public class GameObject
     }
     /// <summary>
     /// 唤醒组件Start函数
-    /// </summary>
+    /// </summary>f
     public void StartGameObject()
     {
         foreach (var item in gameComponents)
         {
-            item.Start();
+            if (item.isActive && !item.wasActive)
+            {
+                item.Start();
+                item.isActive = true;
+                item.wasActive = item.isActive;
+            }
+            
         }
     }
     /// <summary>
@@ -93,6 +100,8 @@ public class GameObject
     {
         T t = new T();
         t.gameObject = this;
+        t.isActive = true;
+        t.wasActive = false;
         gameComponents.Add(t);
         return t;
     }
@@ -146,6 +155,8 @@ public class GameObject
         foreach (var item in gameComponents)
         {
             GameComponent temp = item.Clone() as GameComponent;
+            temp.isActive = item.isActive;
+            temp.wasActive = item.wasActive;
             temp.gameObject = newGameObject;
             if (temp != null) newGameObject.gameComponents.Add(temp);
         }
@@ -205,6 +216,8 @@ public abstract class GameComponent
     /// 此组件依赖的实体
     /// </summary>
     public GameObject gameObject;
+    public bool isActive;
+    public bool wasActive;
     /// <summary>
     /// ECS.Awake的虚函数
     /// </summary>
@@ -228,4 +241,10 @@ public abstract class GameComponent
     /// </summary>
     /// <returns></returns>
     public abstract object Clone();
+
+    public void SetActive(bool flag)
+    {
+        wasActive = isActive;
+        isActive = flag;
+    }
 }

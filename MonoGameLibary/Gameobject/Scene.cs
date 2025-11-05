@@ -100,7 +100,7 @@ public class Scene : IDisposable
         this.gameTime = gameTime;
         foreach (var item in gameObjects)
         {
-            if (isFirst) item.StartGameObject();
+            item.StartGameObject();
             item.UpdateGammeObject();
         }
         CollisionCheck();
@@ -157,7 +157,7 @@ public class Scene : IDisposable
         GameObject res = null;
         foreach (var item in gameObjects)
         {
-            if (item.name == name) res = item;
+            if (item.name.Equals(name)) res = item;
         }
         return res;
     }
@@ -240,11 +240,21 @@ public class Scene : IDisposable
                 if (toCheck[i].CheckCollision(toCheck[j]))
                 {
                     GameObject gameObject = toCheck[i].gameObject;
+                    //调用左侧的碰撞事件函数
                     foreach (GameComponent item in gameObject.gameComponents)
                     {
                         ///反射调用其中的OnCollisionStay方法
                         Type type = item.GetType();
-                        MethodInfo methodInfo = type.GetMethod("OnCollisionStay", BindingFlags.Public | BindingFlags.Instance);
+                        MethodInfo methodInfo = type.GetMethod("OnCollisionStay", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
+                        methodInfo?.Invoke(item, null);
+                    }
+                    gameObject = toCheck[j].gameObject;
+                    //调用右侧的碰撞事件函数
+                    foreach (GameComponent item in gameObject.gameComponents)
+                    {
+                        ///反射调用其中的OnCollisionStay方法
+                        Type type = item.GetType();
+                        MethodInfo methodInfo = type.GetMethod("OnCollisionStay", BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic);
                         methodInfo?.Invoke(item, null);
                     }
                 }
