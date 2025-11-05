@@ -10,7 +10,9 @@ public class SimpleAI : MonoGameLibrary.GameComponent
     public override void Update()
     {
         ///处理移动
-        Vector2 direct = target.position - gameObject.position;
+        if(target!=null)
+        {
+            Vector2 direct = target.position - gameObject.position;
         float length = MathF.Sqrt(direct.X * direct.X + direct.Y * direct.Y);
         if (length < 100f) direct = Vector2.Zero;
         if(direct!=Vector2.Zero) direct.Normalize();
@@ -18,9 +20,11 @@ public class SimpleAI : MonoGameLibrary.GameComponent
         //处理死亡
         if(length < 100f)
         {
-            gameManager.OnEnemyDestoy(this.gameObject);
-            GameObject.Destory(gameObject);
+            //gameManager.OnEnemyDestoy(this.gameObject);
+            //GameObject.Destory(gameObject);
         } 
+        }
+        
     }
 
     public override void Start()

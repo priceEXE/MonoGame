@@ -25,7 +25,7 @@ public class GameObject
     /// <summary>
     /// 实体挂载组件
     /// </summary>
-    List<GameComponent> gameComponents;
+    public List<GameComponent> gameComponents { get; private set; }
     /// <summary>
     /// 游戏物体所处的场景类
     /// </summary>
@@ -190,6 +190,7 @@ public class GameObject
     public static void Destory(GameObject gameObject)
     {
         Core.curScene.DeleteGameObject(gameObject);
+        
         ///GC机制自动保证GameObject和其组件一同销毁
     }
     

@@ -11,10 +11,10 @@ public class GameManager : MonoGameLibrary.GameComponent
     public override void Update()
     {
         ///生成敌人
-        if (enemys.Count != 5)
+        if (enemys.Count != 1)
         {
             GameObject e = GameObject.Institate(enemyPrefab);
-            e.position = new Vector2(MathTool.RandomRange(-500, 500), MathTool.RandomRange(-500, 500));
+            e.position = new Vector2(MathTool.RandomRange(-1000, 1000), MathTool.RandomRange(-1000, 1000));
             enemys.Add(e);
         }
     }

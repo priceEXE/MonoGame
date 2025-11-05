@@ -2,6 +2,8 @@ using MonoGameLibrary;
 using MonoGameLibrary.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
+
 public class PlayerController : MonoGameLibrary.GameComponent
 {
     public Keys upKey;
@@ -68,5 +70,11 @@ public class PlayerController : MonoGameLibrary.GameComponent
     public override object Clone()
     {
         return new PlayerController();
+    }
+
+    public void OnCollisionStay()
+    {
+        Debug.WriteLine(1);
+        GameObject.Destory(this.gameObject);
     }
 }

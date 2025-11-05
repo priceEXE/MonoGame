@@ -5,9 +5,10 @@ public class Camera : MonoGameLibrary.GameComponent
 {
 
     public static Camera main;
-    public float width;
-    public float height;
+    public int width;
+    public int height;
     public bool isMain;
+    public Rectangle viewPort => new Rectangle(0, 0, width, height);
     /// <summary>
     /// 每帧中将摄像机位置设置为与本体绑定的位置
     /// </summary>

@@ -3,42 +3,42 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGameLibrary.Physics2D;
 
-public readonly struct Circle : IEquatable<Circle>
+public struct Circle : IEquatable<Circle>
 {
     //默认的空圆
     private static readonly Circle emptyCircle = new Circle();
     /// <summary>
     /// 圆心横坐标
     /// </summary>
-    public readonly int x;
+    public float x;
     /// <summary>
     /// 圆心纵坐标
     /// </summary>
-    public readonly int y;
+    public float y;
     /// <summary>
     /// 圆半径
     /// </summary>
-    public readonly int radius;
+    public float radius;
     /// <summary>
     /// 圆的最顶部坐标
     /// </summary>
-    public readonly int top => y + radius;
+    public readonly float top => y + radius;
     /// <summary>
     /// 圆的最底部坐标
     /// </summary>
-    public readonly int bottom => y - radius;
+    public readonly float bottom => y - radius;
     /// <summary>
     /// 圆的最左部坐标
     /// </summary>
-    public readonly int left => x - radius;
+    public readonly float left => x - radius;
     /// <summary>
     /// 圆的最右部坐标
     /// </summary>
-    public readonly int right => x + radius;
+    public readonly float right => x + radius;
     /// <summary>
     /// 圆坐标
     /// </summary>
-    public readonly Point position => new Point(x, y);
+    public readonly Vector2 position => new Vector2(x, y);
     /// <summary>
     /// 空圆引用
     /// </summary>
@@ -54,7 +54,7 @@ public readonly struct Circle : IEquatable<Circle>
     /// <param name="x">x坐标</param>
     /// <param name="y">y坐标</param>
     /// <param name="radius">圆半径</param>
-    public Circle(int x, int y, int radius)
+    public Circle(float x, float y, float radius)
     {
         this.x = x;
         this.y = y;
@@ -65,7 +65,7 @@ public readonly struct Circle : IEquatable<Circle>
     /// </summary>
     /// <param name="point">圆心坐标</param>
     /// <param name="radius">圆半径</param>
-    public Circle(Point point, int radius)
+    public Circle(Vector2 point, float radius)
     {
         this.x = point.X;
         this.y = point.Y;
@@ -78,8 +78,8 @@ public readonly struct Circle : IEquatable<Circle>
     /// <returns>重叠时返回true，否则为fasle</returns>
     public bool Intersects(Circle other)
     {
-        int radiiSquared = (this.radius + other.radius) * (this.radius + other.radius);
-        float distanceSquared = Vector2.DistanceSquared(this.position.ToVector2(), other.position.ToVector2());
+        float radiiSquared = (this.radius + other.radius) * (this.radius + other.radius);
+        float distanceSquared = Vector2.DistanceSquared(this.position, other.position);
         return distanceSquared < radiiSquared;
     }
     /// <summary>
@@ -108,4 +108,9 @@ public readonly struct Circle : IEquatable<Circle>
     /// <param name="rhs"></param>
     /// <returns></returns>
     public static bool operator !=(Circle lhs, Circle rhs) => !lhs.Equals(rhs);
+
+    public object Clone()
+    {
+        return new Circle(this.x, this.y, this.radius);
+    }
 }

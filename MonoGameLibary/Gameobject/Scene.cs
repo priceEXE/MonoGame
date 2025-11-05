@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary.Graphics;
+using MonoGameLibrary.Physics2D;
 namespace MonoGameLibrary;
 public class Scene : IDisposable
 {
@@ -35,6 +38,7 @@ public class Scene : IDisposable
     private bool isFirst;
     private List<GameObject> toBeAdded;
     private List<GameObject> toBeDelete;
+    private List<Collider2D> toCheck;
     /// <summary>
     /// Scene构造函数，Game类依赖注入
     /// </summary>
@@ -47,6 +51,7 @@ public class Scene : IDisposable
         gameObjects = new List<GameObject>();
         toBeAdded = new List<GameObject>();
         toBeDelete = new List<GameObject>();
+        toCheck = new List<Collider2D>();
         this.game = game;
         isFirst = true;
     }
@@ -98,6 +103,7 @@ public class Scene : IDisposable
             if (isFirst) item.StartGameObject();
             item.UpdateGammeObject();
         }
+        CollisionCheck();
         foreach (var item in toBeAdded)
         {
             gameObjects.Add(item);
@@ -211,6 +217,41 @@ public class Scene : IDisposable
         {
             gameObject.isActive = false;
         }
+    }
+    /// <summary>
+    /// 碰撞组件注册碰撞器
+    /// </summary>
+    /// <param name="collider2D"></param>
+    public void RegisterCollisionCheck(Collider2D collider2D)
+    {
+        toCheck.Add(collider2D);
+    }
+
+    public void CollisionCheck()
+    {
+        //检查所有碰撞
+        //此处只进行简单的两两碰撞检查
+        int length = toCheck.Count;
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = i + 1; j < length; j++)
+            {
+                //如果碰撞成立，调用脚本中所有的OnCollisionStay函数
+                if (toCheck[i].CheckCollision(toCheck[j]))
+                {
+                    GameObject gameObject = toCheck[i].gameObject;
+                    foreach (GameComponent item in gameObject.gameComponents)
+                    {
+                        ///反射调用其中的OnCollisionStay方法
+                        Type type = item.GetType();
+                        MethodInfo methodInfo = type.GetMethod("OnCollisionStay", BindingFlags.Public | BindingFlags.Instance);
+                        methodInfo?.Invoke(item, null);
+                    }
+                }
+            }
+        }
+        //清除注册的碰撞
+        toCheck.Clear();
     }
 }
 /// <summary>

@@ -3,6 +3,7 @@ using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
 using ConfigSpace;
 using System.Collections.Generic;
+using MonoGameLibrary.Physics2D;
 public class SampleScene : Scene
 {
     private GameObject slimeObject;
@@ -25,7 +26,9 @@ public class SampleScene : Scene
         TextureAtlas atlas = TextureAtlas.FromFile(content, "images/atlas-definition.xml");
         //生成示例物体
         slimeObject = Config.Player();
+        slimeObject.AddComponent<Collider2D>();
         GameObject EnemyObject = Config.Enemy();
+        EnemyObject.AddComponent<Collider2D>();
         //获得其上的动画控制器脚本
         Animator slimeA = slimeObject.GetComponent<Animator>();
         //设置动画注册表
