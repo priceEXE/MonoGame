@@ -5,6 +5,7 @@ using ConfigSpace;
 using System.Collections.Generic;
 public class SampleScene : Scene
 {
+    private GameObject tilemapObject;
     private GameObject slimeObject;
     /// <summary>
     /// 所有此场景下需要生成的prefabs物体
@@ -24,8 +25,12 @@ public class SampleScene : Scene
         // 从XML文件创建图集.
         TextureAtlas atlas = TextureAtlas.FromFile(content, "images/atlas-definition.xml");
         //生成示例物体
+        tilemapObject = Config.TilemapObject();
         slimeObject = Config.Player();
         GameObject EnemyObject = Config.Enemy();
+        // 加载瓦片地图
+        Tilemap tilemap = Tilemap.FromFile(content, "images/tilemap-definition.xml");
+        tilemapObject.GetComponent<TilemapRenderer>().tilemap = tilemap;
         //获得其上的动画控制器脚本
         Animator slimeA = slimeObject.GetComponent<Animator>();
         //设置动画注册表
@@ -35,6 +40,7 @@ public class SampleScene : Scene
         slimeA.ChangeAnimation("slime-animation");//转换动画
         EnemyObject.GetComponent<Animator>().ChangeAnimation("bat-animation");
         //在场景中实例化这个游戏对象
+        GameObject.Institate(tilemapObject);
         GameObject.Institate(slimeObject);
         GameObject.Institate(EnemyObject);
         //创建摄像机实体
